@@ -1,25 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Student from "./Student";
 
 const TagsInput = ({ email, studentDataHistory, setStudentDataHistory }) => {
   const handleKeyDown = (e) => {
     if (e.key !== "Enter") return;
     const value = e.target.value;
     if (!value.trim()) return;
-
-    //add tags back to database based on student name
     let studentData = [...studentDataHistory];
-
-    console.log(email);
-
     studentData.forEach((student, index) => {
       if (student.email === email) {
         console.log(student.email);
         student.tags.push(value);
       }
     });
-    console.log(studentData);
     setStudentDataHistory(studentData);
     e.target.value = "";
   };
@@ -27,7 +20,6 @@ const TagsInput = ({ email, studentDataHistory, setStudentDataHistory }) => {
   const studentBasedOnEmail = studentDataHistory.filter(
     (student) => student.email === email
   )[0];
-  //   console.log(studentBasedOnEmail);
 
   return (
     <Wrapper>
@@ -38,7 +30,6 @@ const TagsInput = ({ email, studentDataHistory, setStudentDataHistory }) => {
               <Tag key={index}>{tag}</Tag>
             ))}
         </TagList>
-
         <TagForm>
           <input
             onKeyDown={handleKeyDown}

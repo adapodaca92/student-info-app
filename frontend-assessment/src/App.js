@@ -19,7 +19,6 @@ function App() {
       console.log(value);
       setStudentData(value);
       setStudentDataHistory(value);
-      // console.log(response.data.students);
     });
   }, []);
 
