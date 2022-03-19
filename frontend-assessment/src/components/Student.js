@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import TagsInput from "./TagsInput";
 
-const Students = ({
+const Student = ({
   pic,
   name,
   email,
@@ -11,12 +12,14 @@ const Students = ({
   skill,
   average,
   testScores,
+  studentDataHistory,
+  setStudentDataHistory,
 }) => {
   const [testScoreList, setTestScoreList] = useState(false);
   return (
     <Wrapper>
       <Container>
-        <Student>
+        <StudentContainer>
           <StudentImage>
             <img src={pic} alt="" />
           </StudentImage>
@@ -25,9 +28,8 @@ const Students = ({
             <StudentEmail>Email: {email}</StudentEmail>
             <StudentCompany>Company: {company}</StudentCompany>
             <StudentSkill>Skill: {skill}</StudentSkill>
-            <StudentAverage>Average:{average}%</StudentAverage>
+            <StudentAverage>Average: {average}%</StudentAverage>
           </StudentDetails>
-
           {!testScoreList ? (
             <AddIcon
               className="listIcon"
@@ -39,7 +41,7 @@ const Students = ({
               onClick={() => setTestScoreList(false)}
             />
           )}
-        </Student>
+        </StudentContainer>
         {testScoreList ? (
           <StudentTestScores>
             <p>Test 1: {testScores[0]}%</p>
@@ -54,14 +56,18 @@ const Students = ({
         ) : (
           <></>
         )}
-
+        <TagsInput
+          studentDataHistory={studentDataHistory}
+          setStudentDataHistory={setStudentDataHistory}
+          email={email}
+        />
         <Divider />
       </Container>
     </Wrapper>
   );
 };
 
-export default Students;
+export default Student;
 
 const Wrapper = styled.div`
   display: flex;
@@ -74,19 +80,21 @@ const Container = styled.div`
 
 `;
 
-const Student = styled.div`
+const StudentContainer = styled.div`
   display: flex;
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   margin-left: 20px;
   align-items: center;
 
   .listIcon {
     height: 50px;
     width: auto;
+    color: gray;
     position: absolute;
     right: 0;
     top: 0;
+    cursor: pointer;
   }
 `;
 

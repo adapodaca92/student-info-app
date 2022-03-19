@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Students from "./components/Students";
-import Search from "./components/Search";
+import Student from "./components/Student";
+import SearchStudents from "./components/SearchStudents";
 
 const url = "https://api.hatchways.io/assessment/students";
 
 function App() {
-  const [studentData, setStudentData] = useState();
-  const [studentDataHistory, setStudentDataHistory] = useState();
+  const [studentData, setStudentData] = useState([]);
+  const [studentDataHistory, setStudentDataHistory] = useState([]);
 
   useEffect(() => {
     axios.get(url).then((response) => {
-      setStudentData(response.data.students);
-      setStudentDataHistory(response.data.students);
+      const value = response.data.students.map((student) => {
+        student.tags = [];
+        return student;
+      });
+      console.log(value);
+      setStudentData(value);
+      setStudentDataHistory(value);
       // console.log(response.data.students);
     });
   }, []);
@@ -30,13 +35,13 @@ function App() {
   return (
     <Wrapper>
       <Container>
-        <Search
+        <SearchStudents
           studentDataHistory={studentDataHistory}
           setStudentData={setStudentData}
         />
         {studentData &&
           studentData.map((i, index) => (
-            <Students
+            <Student
               key={index}
               pic={i.pic}
               name={`${i.firstName} ${" "} ${i.lastName}`}
@@ -45,6 +50,8 @@ function App() {
               skill={i.skill}
               average={getAverage(i.grades)}
               testScores={i.grades.map((i, (index) => index))}
+              studentDataHistory={studentDataHistory}
+              setStudentDataHistory={setStudentDataHistory}
             />
           ))}
       </Container>
