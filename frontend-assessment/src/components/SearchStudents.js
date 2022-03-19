@@ -6,12 +6,12 @@ const SearchStudents = ({ setStudentData, studentDataHistory }) => {
   const [nameInput, setNameInput] = useState("");
 
   const NameAndTagFitlerHandler = (name, tag) => {
-    const studnetFilterByName = studentDataHistory.filter((student) => {
+    const studentFilterByName = studentDataHistory.filter((student) => {
       const wholeName = student.firstName + student.lastName;
       return wholeName.toLowerCase().includes(name.toLowerCase());
     });
 
-    const studentFilterByTagAfterName = studnetFilterByName.filter(
+    const studentFilterByTagAfterName = studentFilterByName.filter(
       (student) => {
         const tagsString = student.tags.join("");
         return tagsString.toLowerCase().includes(tag.toLowerCase());

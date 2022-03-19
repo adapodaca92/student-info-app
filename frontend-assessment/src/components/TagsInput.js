@@ -21,6 +21,8 @@ const TagsInput = ({ email, studentDataHistory, setStudentDataHistory }) => {
     (student) => student.email === email
   )[0];
 
+  console.log(studentBasedOnEmail);
+
   return (
     <Wrapper>
       <Container>
